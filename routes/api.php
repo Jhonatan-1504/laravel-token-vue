@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,14 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post("admin", [AdminController::class, "index"]);
+
 Route::post("login", [AuthController::class, "login"]);
 Route::post("register", [AuthController::class, "register"]);
+Route::post("refresh", [AuthController::class, "refresh"]);
+Route::post("checkToken", [AuthController::class, "checkToken"]);
 
-Route::group(["middleware" => ["jwt.verify"]], function () {
-    // auth
-    Route::post("checkToken", [AuthController::class, "checkToken"]);
-    Route::post("logout", [AuthController::class, "logout"]);
-
-    // admin
-    Route::post("admin", [AdminController::class, "index"]);
-});
+// Route::controller(AuthController::class)->group(function () {
+//     Route::post("login", "login");
+//     Route::post("register", "register");
+//     Route::post("checkToken", "checkToken");
+//     Route::post("logout", "logout");
+// });
