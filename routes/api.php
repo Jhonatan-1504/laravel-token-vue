@@ -15,16 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post("admin", [AdminController::class, "index"]);
-
 Route::post("login", [AuthController::class, "login"]);
 Route::post("register", [AuthController::class, "register"]);
 Route::post("refresh", [AuthController::class, "refresh"]);
 Route::post("checkToken", [AuthController::class, "checkToken"]);
+Route::post("logout", [AuthController::class, "logout"]);
 
-// Route::controller(AuthController::class)->group(function () {
-//     Route::post("login", "login");
-//     Route::post("register", "register");
-//     Route::post("checkToken", "checkToken");
-//     Route::post("logout", "logout");
-// });
+Route::middleware("jwt.verify")->group(function () {
+  Route::post("admin", [AdminController::class, "index"]);
+});
