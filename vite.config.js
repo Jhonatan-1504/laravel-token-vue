@@ -1,28 +1,34 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
-export default defineConfig({
-    plugins: [
-        vue({
-            template: {
-                transformAssetUrls: {
-                    base: null,
-                    includeAbsolute: false
+export default defineConfig(({mode}) => {
+    const env = loadEnv(mode, process.cwd(),'');
+    const host = env.VITE_URL_HMR ?? "localhost"
+
+    return {
+        plugins: [
+            laravel({
+                input: ['resources/css/app.css', 'resources/js/app.js'],
+                refresh: true
+            }),
+            vue({
+                template: {
+                    transformAssetUrls: {
+                        base: null,
+                        includeAbsolute: false
+                    }
                 }
-            }
-        }),
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true
-        }),
-    ],
-    server:{
-        hmr:{host:"localhost"},
-    },
-    resolve: {
-        alias: {
-            '@': '/resources/js',
+            }),
+        ],
+        server: {
+            host,
+            hmr: { host },
         },
-    },
+        resolve: {
+            alias: {
+                '@': '/resources/js',
+            },
+        }
+    }
 });
