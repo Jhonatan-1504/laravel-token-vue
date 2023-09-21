@@ -1,3 +1,3 @@
 <template>
-    Estoy modificando el texto
+  <div>Hola mundo desde el nuevo npm run dev</div>
 </template>
