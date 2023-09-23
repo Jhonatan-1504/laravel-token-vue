@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory} from "vue-router";
 
-export default createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes:[
     {
@@ -15,3 +15,13 @@ export default createRouter({
     }
   ]
 })
+
+router.beforeEach((to,from,next)=>{
+  if(to.name === 'dashboard'){
+    next({name:"login"})
+  }else{
+    next()
+  }
+})
+
+export default router
