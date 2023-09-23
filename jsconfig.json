@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["resources/js/vue/*"] // Mapeo de alias '@' a la carpeta de JavaScript de tu proyecto Laravel
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

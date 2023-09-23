@@ -5,3 +5,10 @@
 body {
   font-family: 'Nunito', sans-serif;
 }
+
+input{
+  outline: none;
+  appearance: none;
+  border: none;
+  border-color: #6b7280;
+}
