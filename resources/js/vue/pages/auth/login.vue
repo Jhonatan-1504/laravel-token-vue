@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-full sm:min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8 dark:bg-gray-900">
+  <div class="flex min-h-full sm:min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
       <!-- <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> -->
@@ -8,40 +8,41 @@
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" action="#" method="POST">
-        <div>
-          <label for="email" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Email address</label>
-          <div class="mt-2">
-            <my-input
-              v-model="form.email"
-              placeholder="Correo electronico"
-              id="email"
-              name="email"
-              autocomplete="email"
-            />
-          </div>
-        </div>
+        <my-form-item for-html="email" label="Email address">
+          <my-input
+            v-model="form.email"
+            placeholder="Correo electronico"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required
+          />
+        </my-form-item>
 
-        <div>
-          <div class="flex items-center justify-between">
-            <label for="password" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Password</label>
-            <div class="text-sm">
-              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">Forgot password?</a>
+        <my-form-item for-html="password" label="Password">
+          <template #label>
+            <div class="flex items-center justify-between">
+              <my-label forHtml="password">Password</my-label>
+
+              <div class="text-sm">
+                <my-link to="forgot-password">Forgot password?</my-link>
+              </div>
             </div>
-          </div>
-          <div class="mt-2">
-            <my-input
-              v-model="form.email"
-              placeholder="Contraseña"
-              id="password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-            />
-          </div>
-        </div>
+          </template>
+
+          <my-input
+            v-model="form.email"
+            placeholder="Contraseña"
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+        </my-form-item>
 
         <div>
-          <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400">Sign in</button>
+          <my-button type="submit">Sign in</my-button>
         </div>
       </form>
 
@@ -55,7 +56,11 @@
 </template>
 
 <script setup>
+import myLink from '@/packages/my-link.vue';
 import myInput from '@/packages/my-input.vue';
+import myButton from '@/packages/my-button.vue';
+import myLabel from '@/packages/my-label.vue';
+import myFormItem from '@/packages/my-form-item.vue';
 
 import {reactive} from 'vue';
 

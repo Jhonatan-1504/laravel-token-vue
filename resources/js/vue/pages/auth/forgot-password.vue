@@ -7,21 +7,14 @@
         </div>
       </router-link>
 
-      <h2 class="text-center text-2xl font-bold leading-9 tracking-tight">Registrar</h2>
+      <h2 class="text-center text-2xl font-bold leading-9 tracking-tight">Recuperar contraseña</h2>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" action="#" method="POST">
-        <my-form-item for-html="name" label="Fullname">
-          <my-input
-            v-model="form.name"
-            placeholder="Nombre completo"
-            id="name"
-            name="name"
-            autocomplete="name"
-            required
-          />
-        </my-form-item>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          ¿Olvidaste tu contraseña? No te preocupes, te ayudaremos a recuperarla. Solo necesitamos tu correo electrónico para enviarte un enlace seguro de restablecimiento de contraseña. Ingresa tu correo a continuación para comenzar.
+        </p>
 
         <my-form-item for-html="email" label="Email address">
           <my-input
@@ -34,32 +27,8 @@
           />
         </my-form-item>
 
-        <my-form-item for-html="password" label="Password">
-          <my-input
-            v-model="form.password"
-            placeholder="Contraseña"
-            id="password"
-            name="password"
-            autocomplete="password"
-            required
-            type="password"
-          />
-        </my-form-item>
-
-        <my-form-item for-html="password_confirmation" label="Repeat password">
-          <my-input
-            v-model="form.password_confirmation"
-            placeholder="Repita su contraseña"
-            id="password_confirmation"
-            name="password_confirmation"
-            autocomplete="password_confirmation"
-            required
-            type="password"
-          />
-        </my-form-item>
-
         <div>
-          <my-button>Save</my-button>
+          <my-button type="submit">Send</my-button>
         </div>
       </form>
     </div>
@@ -67,16 +36,16 @@
 </template>
 
 <script setup>
+import myLink from '@/packages/my-link.vue';
 import myInput from '@/packages/my-input.vue';
 import myButton from '@/packages/my-button.vue';
+import myLabel from '@/packages/my-label.vue';
 import myFormItem from '@/packages/my-form-item.vue';
 
 import {reactive} from 'vue';
 
 const form = reactive({
-  name:"",
   email:"",
-  password:"",
-  password_confirmation:""
+  password:""
 })
 </script>
