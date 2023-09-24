@@ -1,13 +1,13 @@
 <template>
   <div class="flex min-h-full sm:min-h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm text-gray-900 dark:text-white flex items-center gap-3">
-      <router-link to="login">
+      <router-link to="login" aria-label="Volver a login">
         <div class="cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full ease-in duration-75">
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
         </div>
       </router-link>
 
-      <h2 class="text-center text-2xl font-bold leading-9 tracking-tight">Recuperar contraseña</h2>
+      <my-text>Recuperar contraseña</my-text>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import myText from '@/packages/my-text.vue';
 import myLink from '@/packages/my-link.vue';
 import myInput from '@/packages/my-input.vue';
 import myButton from '@/packages/my-button.vue';

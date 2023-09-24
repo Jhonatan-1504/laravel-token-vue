@@ -3,7 +3,7 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
       <!-- <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" /> -->
-      <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">Iniciar sesión</h2>
+      <my-text class="mt-10">Iniciar sesión</my-text>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -25,7 +25,7 @@
               <my-label forHtml="password">Password</my-label>
 
               <div class="text-sm">
-                <my-link to="forgot-password">Forgot password?</my-link>
+                <my-link to="forgot-password" aria-label="Recuperar contraseña">Forgot password?</my-link>
               </div>
             </div>
           </template>
@@ -49,13 +49,14 @@
       <p class="mt-10 text-center text-sm text-gray-500 dark:text-gray-400">
         Not a member?
         {{ ' ' }}
-        <router-link to="register" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">Register free.</router-link>
+        <router-link to="register" aria-label="Registrar nuevo usuario" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">Register free.</router-link>
       </p>
     </div>
   </div>
 </template>
 
 <script setup>
+import myText from '@/packages/my-text.vue';
 import myLink from '@/packages/my-link.vue';
 import myInput from '@/packages/my-input.vue';
 import myButton from '@/packages/my-button.vue';
