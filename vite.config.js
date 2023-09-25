@@ -27,7 +27,7 @@ export default defineConfig(({mode}) => {
         },
         resolve: {
             alias: {
-                '@': '/resources/js/vue',
+                '@': '/resources/js/vue'
             },
         }
     }

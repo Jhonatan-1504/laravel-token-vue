@@ -27,11 +27,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to,from,next)=>{
-  if(to.name === 'dashboard'){
-    next({name:"login"})
-  }else{
-    next()
-  }
+  // if(to.name === 'dashboard'){
+  //   next({name:"login"})
+  // }else{
+  //   next()
+  // }
+
+  next()
 })
 
 export default router

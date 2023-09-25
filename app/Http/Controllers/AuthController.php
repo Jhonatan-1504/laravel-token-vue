@@ -59,6 +59,10 @@ class AuthController extends Controller
             "name" => "required|max:255",
             "email" => "required|email|max:255|unique:users",
             "password" => "required|min:6|confirmed"
+        ],[
+            "email.unique"=>"Este correo ya se encuentra en uso.",
+            "password.confirmed"=>"Las contraseñas no coinciden.",
+            "password.min"=>"La contraseña minimo debe ser de 6 caracteres"
         ]);
 
         if ($validator->fails()) return $this->respondWithError(["errors" => $validator->errors()]);
@@ -72,7 +76,7 @@ class AuthController extends Controller
         $token = Auth::login($user);
 
         return $this->respondWithToken($token, [
-            "message" => "User registered successfully",
+            "message" => "Usuario registrado con éxito.",
             "user" => $user,
         ]);
     }

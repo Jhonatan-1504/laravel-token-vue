@@ -11,7 +11,7 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form @submit.prevent="register" class="space-y-6">
         <my-form-item for-html="name" label="Fullname">
           <my-input
             v-model="form.name"
@@ -59,7 +59,7 @@
         </my-form-item>
 
         <div>
-          <my-button>Save</my-button>
+          <my-button :loading="loading" type="submit">Save</my-button>
         </div>
       </form>
     </div>
@@ -72,12 +72,7 @@ import myInput from '@/packages/my-input.vue';
 import myButton from '@/packages/my-button.vue';
 import myFormItem from '@/packages/my-form-item.vue';
 
-import {reactive} from 'vue';
+import {useRegister} from '@/services/auth/register';
 
-const form = reactive({
-  name:"",
-  email:"",
-  password:"",
-  password_confirmation:""
-})
+const {form,register,loading} = useRegister()
 </script>
