@@ -12,3 +12,16 @@ input{
   border: none;
   border-color: #6b7280;
 }
+
+.scrollbar{
+  &::-webkit-scrollbar{
+    width: 0;
+  }
+  &::-webkit-scrollbar-track{
+    background-color: black;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: red;
+  }
+}

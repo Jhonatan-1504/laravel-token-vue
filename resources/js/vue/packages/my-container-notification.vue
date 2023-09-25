@@ -1,10 +1,7 @@
 <template>
   <teleport to="body">
-    <div id="notification" class="absolute top-0 right-0 m-4 z-10">
-      <my-notification
-        title="Successfull sent!"
-        message="Lorem ipsum dolor sit amet consectetur."
-      />
+    <div id="notification" class="scrollbar overflow-y-auto max-h-screen scroll-m-0 w-full absolute top-0 right-0 p-4 z-10 flex flex-col gap-2 w-full sm:w-auto">
+      
     </div>
   </teleport>
 </template>
