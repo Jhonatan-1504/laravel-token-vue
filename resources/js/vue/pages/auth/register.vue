@@ -16,6 +16,7 @@
         type="form"
         label="register"
         form-class="space-y-6"
+        v-model="store.form"
         :incomplete-message="false"
         :ignore="true"
         @submit="onSubmit"
@@ -48,7 +49,7 @@
           suffix-icon="eyeClosed"
           validation="required"
           :validation-messages="{required:'Contraseña es requerido.'}"
-          @suffix-icon-click="handleIconClick"
+          @suffix-icon-click="ToggleShowPassword"
         />
 
         <FormKit
@@ -59,7 +60,7 @@
           suffix-icon="eyeClosed"
           validation="required|confirm:password"
           :validation-messages="{required:'Repetir la contraseña.'}"
-          @suffix-icon-click="handleIconClick"
+          @suffix-icon-click="ToggleShowPassword"
         />
       </FormKit>
     </div>
@@ -76,21 +77,15 @@ import myFormItem from '@/packages/my-form-item.vue';
 
 import {useRegister} from '@/stores/auth/register';
 import {RegisterUser} from '@/services/AuthServices';
+import {ToggleShowPassword} from '@/tools/show-password-formkit';
 
 const store = useRegister()
 
 const onSubmit = async (data) => {
-  const response = await RegisterUser(data)
+  const success = await store.Register(data)
 
-  if(response.success){
+  if(success){
     reset("register-user")
   }
-
-  console.log(response);
-}
-
-const handleIconClick = (node, e) => {
-  node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
-  node.props.type = node.props.type === 'password' ? 'text' : 'password'
 }
 </script>

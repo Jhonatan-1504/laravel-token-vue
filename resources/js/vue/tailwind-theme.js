@@ -14,7 +14,7 @@ export default {
   },
   'family:text':{
     inner:"relative",
-    suffixIcon:"absolute text-white top-2.5 right-1"
+    suffixIcon:"absolute text-white top-2.5 right-1 cursor-pointer"
   },
   'family:button': {
     outer:"$reset",

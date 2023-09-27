@@ -1,14 +1,12 @@
-import { RegisterUser } from "@/services/AuthServices";
+import { LoginUser } from "@/services/AuthServices";
 import { defineStore } from "pinia";
 
-export const useRegister = defineStore("registerUser",{
+export const useLogin = defineStore("loginUser",{
   state:()=>({
     loading:false,
     form:{
-      name:"",
       email:"",
-      password:"",
-      password_confirmation:""
+      password:""
     }
   }),
   actions:{
@@ -16,7 +14,7 @@ export const useRegister = defineStore("registerUser",{
       this.loading = true
 
       try {
-        const data = await RegisterUser(this.form)
+        const data = await LoginUser(this.form)
         
         return data.success ?? false
       } catch (error) {

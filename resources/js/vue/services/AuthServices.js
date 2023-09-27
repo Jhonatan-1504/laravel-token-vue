@@ -10,3 +10,13 @@ export async function RegisterUser(payload){
     Notification.error(error)
   }
 }
+
+export async function LoginUser(payload){
+  try {
+    const {data} = await axiosClient.post("/login",payload)
+
+    return data
+  } catch (error) {
+    Notification.error(error)
+  }
+}
