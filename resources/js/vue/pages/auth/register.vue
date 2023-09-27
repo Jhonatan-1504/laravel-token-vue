@@ -11,68 +11,86 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form @submit.prevent="register" class="space-y-6">
-        <my-form-item for-html="name" label="Fullname">
-          <my-input
-            v-model="form.name"
-            placeholder="Nombre completo"
-            id="name"
-            name="name"
-            autocomplete="name"
-            required
-          />
-        </my-form-item>
+      <FormKit
+        id="register-user"
+        type="form"
+        label="register"
+        form-class="space-y-6"
+        :incomplete-message="false"
+        :ignore="true"
+        @submit="onSubmit"
+      >
+        <FormKit 
+          type="text"
+          label="Fullname"
+          name="name"
+          autocomplete="name"
+          placeholder="Nombre completo"
+          validation="required"
+          :validation-messages="{required:'Nombre es requerido.'}"
+        />
 
-        <my-form-item for-html="email" label="Email address">
-          <my-input
-            v-model="form.email"
-            placeholder="Correo electronico"
-            id="email"
-            name="email"
-            autocomplete="email"
-            required
-          />
-        </my-form-item>
+        <FormKit 
+          type="email"
+          label="Email address"
+          name="email"
+          autocomplete="email"
+          placeholder="Correo electronico"
+          validation="required|email"
+          :validation-messages="{required:'Correo es requerido.',email:'Correo invalido.'}"
+        />
 
-        <my-form-item for-html="password" label="Password">
-          <my-input
-            v-model="form.password"
-            placeholder="Contraseña"
-            id="password"
-            name="password"
-            autocomplete="password"
-            required
-            type="password"
-          />
-        </my-form-item>
+        <FormKit
+          type="password"
+          label="Password"
+          name="password"
+          placeholder="Contraseña"
+          suffix-icon="eyeClosed"
+          validation="required"
+          :validation-messages="{required:'Contraseña es requerido.'}"
+          @suffix-icon-click="handleIconClick"
+        />
 
-        <my-form-item for-html="password_confirmation" label="Repeat password">
-          <my-input
-            v-model="form.password_confirmation"
-            placeholder="Repita su contraseña"
-            id="password_confirmation"
-            name="password_confirmation"
-            autocomplete="password_confirmation"
-            required
-            type="password"
-          />
-        </my-form-item>
-
-        <div>
-          <my-button :loading="loading" type="submit">Save</my-button>
-        </div>
-      </form>
+        <FormKit
+          type="password"
+          label="Repeat password"
+          name="password_confirmation"
+          placeholder="Repita su contraseña"
+          suffix-icon="eyeClosed"
+          validation="required|confirm:password"
+          :validation-messages="{required:'Repetir la contraseña.'}"
+          @suffix-icon-click="handleIconClick"
+        />
+      </FormKit>
     </div>
   </div>
 </template>
 
 <script setup>
+import { reset } from '@formkit/core'
+
 import myText from '@/packages/my-text.vue';
 import myInput from '@/packages/my-input.vue';
 import myButton from '@/packages/my-button.vue';
 import myFormItem from '@/packages/my-form-item.vue';
 
-import {useRegister} from '@/services/auth/register';
+import {useRegister} from '@/stores/auth/register';
+import {RegisterUser} from '@/services/AuthServices';
 
-const {form,register,loading} = useRegister()
+const store = useRegister()
+
+const onSubmit = async (data) => {
+  const response = await RegisterUser(data)
+
+  if(response.success){
+    reset("register-user")
+  }
+
+  console.log(response);
+}
+
+const handleIconClick = (node, e) => {
+  node.props.suffixIcon = node.props.suffixIcon === 'eye' ? 'eyeClosed' : 'eye'
+  node.props.type = node.props.type === 'password' ? 'text' : 'password'
+}
 </script>

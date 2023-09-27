@@ -21,7 +21,8 @@ axiosClient.interceptors.response.use(
   },
   (AxiosError) => {
     let data = AxiosError.response.data
-    let errors = Object.values(data.errors).at()
+    let errors = data.errors ? Object.values(data.errors).at() : []
+    let statusText = AxiosError.response.statusText
 
     if(errors && errors.length){
       errors.forEach((error)=>{ 
@@ -29,8 +30,14 @@ axiosClient.interceptors.response.use(
       })
     }
 
+    if(statusText){
+      Notification.error(statusText)
+    }
+
     return AxiosError
   }
 )
+
+
 
 export default axiosClient
