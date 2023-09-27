@@ -71,18 +71,14 @@
 import { reset } from '@formkit/core'
 
 import myText from '@/packages/my-text.vue';
-import myInput from '@/packages/my-input.vue';
-import myButton from '@/packages/my-button.vue';
-import myFormItem from '@/packages/my-form-item.vue';
 
 import {useRegister} from '@/stores/auth/register';
-import {RegisterUser} from '@/services/AuthServices';
 import {ToggleShowPassword} from '@/tools/show-password-formkit';
 
 const store = useRegister()
 
-const onSubmit = async (data) => {
-  const success = await store.Register(data)
+const onSubmit = async () => {
+  const success = await store.Register()
 
   if(success){
     reset("register-user")

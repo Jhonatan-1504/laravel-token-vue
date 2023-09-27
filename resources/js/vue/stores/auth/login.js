@@ -10,7 +10,7 @@ export const useLogin = defineStore("loginUser",{
     }
   }),
   actions:{
-    async Register(){
+    async AuthLogin(){
       this.loading = true
 
       try {

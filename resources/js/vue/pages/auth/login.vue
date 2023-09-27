@@ -7,44 +7,37 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
-        <my-form-item for-html="email" label="Email address">
-          <my-input
-            v-model="form.email"
-            placeholder="Correo electronico"
-            id="email"
-            name="email"
-            autocomplete="email"
-            required
-          />
-        </my-form-item>
+      <FormKit
+        id="login-user"
+        type="form"
+        label="Sign in"
+        form-class="space-y-6"
+        v-model="store.form"
+        :incomplete-message="false"
+        :ignore="true"
+        @submit="onSubmit"
+      >
+        <FormKit 
+          type="email"
+          label="Email address"
+          name="email"
+          autocomplete="email"
+          placeholder="Correo electronico"
+          validation="required|email"
+          :validation-messages="{required:'Correo es requerido.',email:'Correo invalido.'}"
+        />
 
-        <my-form-item for-html="password" label="Password">
-          <template #label>
-            <div class="flex items-center justify-between">
-              <my-label forHtml="password">Password</my-label>
-
-              <div class="text-sm">
-                <my-link to="forgot-password" aria-label="Recuperar contraseña">Forgot password?</my-link>
-              </div>
-            </div>
-          </template>
-
-          <my-input
-            v-model="form.email"
-            placeholder="Contraseña"
-            id="password"
-            name="password"
-            type="password"
-            autocomplete="current-password"
-            required
-          />
-        </my-form-item>
-
-        <div>
-          <my-button type="submit">Sign in</my-button>
-        </div>
-      </form>
+        <FormKit
+          type="password"
+          label="Password"
+          name="password"
+          placeholder="Contraseña"
+          suffix-icon="eyeClosed"
+          validation="required"
+          :validation-messages="{required:'Contraseña es requerido.'}"
+          @suffix-icon-click="ToggleShowPassword"
+        />
+      </FormKit>
 
       <p class="mt-10 text-center text-sm text-gray-500 dark:text-gray-400">
         Not a member?
@@ -56,17 +49,20 @@
 </template>
 
 <script setup>
+import {reset} from '@formkit/vue';
+
 import myText from '@/packages/my-text.vue';
-import myLink from '@/packages/my-link.vue';
-import myInput from '@/packages/my-input.vue';
-import myButton from '@/packages/my-button.vue';
-import myLabel from '@/packages/my-label.vue';
-import myFormItem from '@/packages/my-form-item.vue';
 
-import {reactive} from 'vue';
+import {useLogin} from '@/stores/auth/login';
+import {ToggleShowPassword} from '@/tools/show-password-formkit';
 
-const form = reactive({
-  email:"",
-  password:""
-})
+const store = useLogin()
+
+const onSubmit = async () =>{
+  const success = await store.AuthLogin()
+
+  if(success){
+    reset("login-user")
+  }
+}
 </script>
