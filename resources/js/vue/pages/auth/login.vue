@@ -53,16 +53,20 @@ import {reset} from '@formkit/vue';
 
 import myText from '@/packages/my-text.vue';
 
+import {useRouter} from 'vue-router';
 import {useLogin} from '@/stores/auth/login';
 import {ToggleShowPassword} from '@/tools/show-password-formkit';
 
 const store = useLogin()
+const router = useRouter()
 
 const onSubmit = async () =>{
   const success = await store.AuthLogin()
 
   if(success){
     reset("login-user")
+
+    router.push({name:"dashboard"})
   }
 }
 </script>

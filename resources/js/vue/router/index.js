@@ -1,39 +1,43 @@
-import { createRouter, createWebHistory} from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
+import { useCredentails } from '@/stores/auth/credentials';
 
 const router = createRouter({
   history: createWebHistory(),
-  routes:[
+  routes: [
     {
-      path:"/login",
-      name:"login",
-      component:()=>import("@/pages/auth/login.vue")
+      path: "/login",
+      name: "login",
+      component: () => import("@/pages/auth/login.vue")
     },
     {
-      path:"/register",
-      name:"register",
-      component:()=>import("@/pages/auth/register.vue")
+      path: "/register",
+      name: "register",
+      component: () => import("@/pages/auth/register.vue")
     },
     {
-      path:"/forgot-password",
-      name:"forgot-password",
-      component:()=>import("@/pages/auth/forgot-password.vue")
+      path: "/forgot-password",
+      name: "forgot-password",
+      component: () => import("@/pages/auth/forgot-password.vue")
     },
     {
-      path:"/",
-      name:"dashboard",
-      component:()=>import("@/pages/dashboard.vue")
+      path: "/",
+      name: "dashboard",
+      meta: { requiredCredentails: true },
+      component: () => import("@/pages/dashboard.vue")
     }
   ]
 })
 
-router.beforeEach((to,from,next)=>{
-  // if(to.name === 'dashboard'){
-  //   next({name:"login"})
-  // }else{
-  //   next()
-  // }
+router.beforeEach((to, from, next) => {
+  const credentials = useCredentails()
 
-  next()
+  if (to.meta.requiredCredentails && !credentials.isLoggin) {
+    next({ name: "login" });
+  } else if (to.path.includes("login") && credentials.isLoggin) {
+    next({ name: "dashboard" });
+  } else {
+    next();
+  }
 })
 
 export default router
