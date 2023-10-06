@@ -1,5 +1,5 @@
 <template>
-  <div class="dark:bg-gray-900 min-h-screen">
+  <div class="bg-white dark:bg-gray-900 min-h-screen">
     <router-view />
 
     <my-container-notification />
